@@ -116,6 +116,14 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
         } \
 }
 
+/* Passes the current url to mpv */
+#define MPV { \
+        .v = (char *[]){ "/bin/sh", "-c", \
+             "mpv $(xprop -id $0 _SURF_URI | cut -d \\\" -f 2)", \
+             winid, NULL \
+        } \
+}
+
 /* BM_ADD(readprop) */
 #define BM_ADD(r) {\
         .v = (const char *[]){ "/bin/sh", "-c", \
@@ -160,6 +168,7 @@ static Key keys[] = {
     { 0,                     GDK_KEY_f,       spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
     { 0,                     GDK_KEY_slash,   spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
     { 0,                     GDK_KEY_m,       spawn,      BM_ADD("_SURF_URI") },
+    { 0,                     GDK_KEY_w,       spawn,      MPV },
 
     { 0,                     GDK_KEY_i,      insert,     { .i = 1 } },
     { 0,                     GDK_KEY_Escape, insert,     { .i = 0 } },
