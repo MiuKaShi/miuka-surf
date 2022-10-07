@@ -10,6 +10,14 @@ static char *historyfile    = "~/.surf/history.txt";
 static char *dldir          = "~/Downloads/";
 static char *dlstatus       = "~/.surf/dlstatus/";
 
+static char *searchengine = "https://duckduckgo.com/?q=";
+
+static SearchEngine searchengines[] = {
+    { "g",      "http://www.google.de/search?q=%s"   },
+    { "w",      "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=%s&language=en&go=Go" },
+    { "yt",     "https://www.youtube.com/results?search_query=%s" },
+};
+
 /* Webkit default features */
 /* Highest priority value will be used.
  * Default parameters are priority 0
@@ -115,7 +123,13 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
              "mpv --really-quiet \"$0\"", u, NULL \
         } \
 }
-
+/* Passes the current url to mpv */
+#define MPV { \
+        .v = (char *[]){ "/bin/sh", "-c", \
+             "mpv $(xprop -id $0 _SURF_URI | cut -d \\\" -f 2)", \
+             winid, NULL \
+        } \
+}
 /* BM_ADD(readprop) */
 #define BM_ADD(r) {\
         .v = (const char *[]){ "/bin/sh", "-c", \
@@ -160,6 +174,7 @@ static Key keys[] = {
     { 0,                     GDK_KEY_f,       spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
     { 0,                     GDK_KEY_slash,   spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
     { 0,                     GDK_KEY_m,       spawn,      BM_ADD("_SURF_URI") },
+    { 0,                     GDK_KEY_w,       spawn,      MPV },
 
     { 0,                     GDK_KEY_i,      insert,     { .i = 1 } },
     { 0,                     GDK_KEY_Escape, insert,     { .i = 0 } },
