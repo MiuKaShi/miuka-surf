@@ -7,18 +7,18 @@
 static int  surfuseragent   = 1;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = ""; /* Or override the whole user agent string */
 static time_t sessiontime   = 3600;
-static char *scriptfile     = "~/.config/surf/script.js";
 static char *styledir       = "~/.config/surf/styles/";
 static char *certdir        = "~/.config/surf/certificates/";
 static char *cachedir       = "~/.config/surf/cache/";
 static char *cookiefile     = "~/.config/surf/cookies.txt";
-static char *searchurl      = "duckduckgo.com/?q=%s";
+static char *searchurl      = "google.com/?q=%s";
 
 static char *bookmarkfile   = BM_FILE;
 static char *historyfile    = HS_FILE;
 
 static char *scriptfiles[]  = {
     "~/.config/surf/scripts/extended-vim-movement.js",
+    "~/.config/surf/scripts/link-hinting.js",
 };
 static char *searchengine = "https://yandex.com/search/?text=";
 
