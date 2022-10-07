@@ -6,6 +6,7 @@
 
 static int  surfuseragent   = 1;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = ""; /* Or override the whole user agent string */
+static time_t sessiontime   = 3600;
 static char *scriptfile     = "~/.config/surf/script.js";
 static char *styledir       = "~/.config/surf/styles/";
 static char *certdir        = "~/.config/surf/certificates/";
@@ -16,6 +17,9 @@ static char *searchurl      = "duckduckgo.com/?q=%s";
 static char *bookmarkfile   = BM_FILE;
 static char *historyfile    = HS_FILE;
 
+static char *scriptfiles[]  = {
+    "~/.config/surf/scripts/extended-vim-movement.js",
+};
 static char *searchengine = "https://yandex.com/search/?text=";
 
 static SearchEngine searchengines[] = {
@@ -96,6 +100,7 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 #define PROMPT_GO   "Go:"
 #define PROMPT_NEW  "Go: (new window)"
 #define PROMPT_FIND "Find:"
+#define PROMPT_SEARCH "SEARCH:"
 
 /* SETPROP(readprop, setprop, prompt)*/
 #define SETPROP(r, s, p) { \
@@ -122,11 +127,11 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 }
 
 #define SEARCH() { \
-        .v = (const char *[]){ "/bin/sh", "-c", \
-             "xprop -id $1 -f $2 8s -set $2 \"" \
-             "$(dmenu -p Search: -w $1 < /dev/null)\"", \
-             "surf-search", winid, "_SURF_SEARCH", NULL \
-        } \
+    .v = (const char *[]){ "/bin/sh", "-c", \
+        "xprop -id $1 -f $2 8s -set $2 \"" \
+        "$(dmenu -p \"$3\" -w $1 < /dev/null)\"", \
+        "surf-search", winid, "_SURF_SEARCH", PROMPT_SEARCH, NULL \
+    } \
 }
 
 /* DOWNLOAD(URI, referer) */
