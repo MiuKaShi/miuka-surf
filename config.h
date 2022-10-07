@@ -11,6 +11,7 @@ static char *styledir       = "~/.config/surf/styles/";
 static char *certdir        = "~/.config/surf/certificates/";
 static char *cachedir       = "~/.config/surf/cache/";
 static char *cookiefile     = "~/.config/surf/cookies.txt";
+static char *searchurl      = "duckduckgo.com/?q=%s";
 
 static char *bookmarkfile   = BM_FILE;
 static char *historyfile    = HS_FILE;
@@ -120,6 +121,14 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
         } \
 }
 
+#define SEARCH() { \
+        .v = (const char *[]){ "/bin/sh", "-c", \
+             "xprop -id $1 -f $2 8s -set $2 \"" \
+             "$(dmenu -p Search: -w $1 < /dev/null)\"", \
+             "surf-search", winid, "_SURF_SEARCH", NULL \
+        } \
+}
+
 /* DOWNLOAD(URI, referer) */
 #define DOWNLOAD(u, r) { \
         .v = (const char *[]){ "st", "-c", "st-float", "-e", "/bin/sh", "-c",\
@@ -216,6 +225,7 @@ static Key keys[] = {
     { 0 | GDK_SHIFT_MASK, GDK_KEY_g,     spawn,         SETPROP("_SURF_URI", "_SURF_GO", PROMPT_NEW) },
     { 0,                  GDK_KEY_f,     spawn,         SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
     { 0,                  GDK_KEY_slash, spawn,         SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+    { 0,                  GDK_KEY_s,     spawn,         SEARCH() },
     { 0,                  GDK_KEY_m,     spawn,         BM_ADD("_SURF_URI") },
 
     { 0,                  GDK_KEY_e,      externalpipe, { .v = editscreen } },

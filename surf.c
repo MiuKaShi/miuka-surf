@@ -37,7 +37,7 @@
 #define LENGTH(x)               (sizeof(x) / sizeof(x[0]))
 #define CLEANMASK(mask)         (mask & (MODKEY|GDK_SHIFT_MASK))
 
-enum { AtomFind, AtomGo, AtomUri, AtomUTF8, AtomLast };
+enum { AtomFind, AtomSearch, AtomGo, AtomUri, AtomUTF8, AtomLast };
 
 enum {
     OnDoc   = WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT,
@@ -245,6 +245,7 @@ static void togglefullscreen(Client *c, const Arg *a);
 static void togglecookiepolicy(Client *c, const Arg *a);
 static void toggleinspector(Client *c, const Arg *a);
 static void find(Client *c, const Arg *a);
+static void search(Client *c, const Arg *a);
 static void insert(Client *c, const Arg *a);
 static void externalpipe(Client *c, const Arg *a);
 static void playexternal(Client *c, const Arg *a);
@@ -430,6 +431,7 @@ setup(void)
 
     /* atoms */
     atoms[AtomFind] = XInternAtom(dpy, "_SURF_FIND", False);
+    atoms[AtomSearch] = XInternAtom(dpy, "_SURF_SEARCH", False);
     atoms[AtomGo] = XInternAtom(dpy, "_SURF_GO", False);
     atoms[AtomUri] = XInternAtom(dpy, "_SURF_URI", False);
     atoms[AtomUTF8] = XInternAtom(dpy, "UTF8_STRING", False);
@@ -693,6 +695,19 @@ loaduri(Client *c, const Arg *a)
         webkit_web_view_load_uri(c->view, url);
         updatetitle(c);
     }
+
+    g_free(url);
+}
+
+void
+search(Client *c, const Arg *a)
+{
+    Arg arg;
+    char *url;
+
+    url = g_strdup_printf(searchurl, a->v);
+    arg.v = url;
+    loaduri(c, &arg);
 
     g_free(url);
 }
@@ -1444,6 +1459,9 @@ processx(GdkXEvent *e, GdkEvent *event, gpointer d)
                 find(c, NULL);
 
                 return GDK_FILTER_REMOVE;
+            } else if (ev->atom == atoms[AtomSearch]) {
+                a.v = getatom(c, AtomSearch);
+                search(c, &a);
             } else if (ev->atom == atoms[AtomGo]) {
                 a.v = getatom(c, AtomGo);
                 loaduri(c, &a);
