@@ -229,10 +229,9 @@ static Key keys[] = {
     /* vertical and horizontal scrolling, in viewport percentage */
     { 0,                   GDK_KEY_j,      scrollv,            { .i = +10 } },
     { 0,                   GDK_KEY_k,      scrollv,            { .i = -10 } },
+    { 0,                   GDK_KEY_space,  scrollv,            { .i = +50 } },
     { 0,                   GDK_KEY_u,      scrollv,            { .i = -50 } },
     { 0,                   GDK_KEY_d,      scrollv,            { .i = +50 } },
-    { 0 | GDK_SHIFT_MASK,  GDK_KEY_j,      zoom,               { .i = -1 } },
-    { 0 | GDK_SHIFT_MASK,  GDK_KEY_k,      zoom,               { .i = +1 } },
 
     { 0 | GDK_SHIFT_MASK,  GDK_KEY_j,      zoom,               { .i = -1 } },
     { 0 | GDK_SHIFT_MASK,  GDK_KEY_k,      zoom,               { .i = +1 } },
