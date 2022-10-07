@@ -74,7 +74,7 @@ static UriParameters uriparams[] = {
         },
     },
     {
-        "(://|\\.)(youtube\\.com|localhost:9091)(/|$)", {
+        "(://|\\.)(bilibili\\.com|youtube\\.com|localhost:9091)(/|$)", {
             [JavaScript] = { { .i = 1 }, 1 },
             [Style] = { { .i = 0 }, 1 },
         },
