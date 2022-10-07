@@ -56,6 +56,12 @@ install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f surf $(DESTDIR)$(PREFIX)/bin
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf
+	cp -f surf-open $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf-open
+	cp -f surf-edit-source $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf-edit-source
+	cp -f surf-link-select $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf-link-select
 	mkdir -p $(DESTDIR)$(LIBDIR)
 	cp -f $(WLIB) $(DESTDIR)$(LIBDIR)
 	for wlib in $(WLIB); do \
@@ -64,7 +70,6 @@ install: all
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < surf.1 > $(DESTDIR)$(MANPREFIX)/man1/surf.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/surf.1
-	cp surf-open.sh $(DESTDIR)$(PREFIX)/bin/surf-open
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/surf

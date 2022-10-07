@@ -1,6 +1,6 @@
 # Maintainer: Antoine Stevan
 pkgname=miuka-surf-git
-pkgver=r10.2f6750b
+pkgver=r11.7aef80b
 pkgrel=1
 epoch=
 pkgdesc="A heavily patched build of surf."
