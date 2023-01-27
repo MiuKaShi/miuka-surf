@@ -22,7 +22,7 @@ options:
 surf: $(OBJ)
 	$(CC) $(SURFLDFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LIBS)
 
-$(OBJ) $(WOBJ): config.h common.h config.mk
+$(OBJ) $(WOBJ): config.h config.mk
 
 config.h:
 	cp config.def.h $@
@@ -56,12 +56,6 @@ install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f surf $(DESTDIR)$(PREFIX)/bin
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf
-	cp -f surf-open $(DESTDIR)$(PREFIX)/bin
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf-open
-	cp -f surf-edit-source $(DESTDIR)$(PREFIX)/bin
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf-edit-source
-	cp -f surf-link-select $(DESTDIR)$(PREFIX)/bin
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/surf-link-select
 	mkdir -p $(DESTDIR)$(LIBDIR)
 	cp -f $(WLIB) $(DESTDIR)$(LIBDIR)
 	for wlib in $(WLIB); do \
