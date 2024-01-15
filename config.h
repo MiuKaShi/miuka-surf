@@ -1,12 +1,12 @@
 /* modifier 0 means no modifier */
 static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = ""; /* Or override the whole user agent string */
-static char *scriptfile     = "~/.surf/script.js";
-static char *styledir       = "~/.surf/styles/";
-static char *certdir        = "~/.surf/certificates/";
+static char *scriptfile     = "~/.config/surf/script.js";
+static char *styledir       = "~/.config/surf/styles/";
+static char *certdir        = "~/.config/surf/certificates/";
 static char *cachedir       = "/tmp/cache";
 static char *cookiefile     = "/tmp/cookies.txt";
-static char *searchurl      = "duckduckgo.com/?q=%s";
+static char *searchurl      = "google.com/?q=%s";
 
 /* Webkit default features */
 /* Highest priority value will be used.
