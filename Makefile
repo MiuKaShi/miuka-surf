@@ -64,6 +64,12 @@ install: all
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < surf.1 > $(DESTDIR)$(MANPREFIX)/man1/surf.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/surf.1
+	cp surf.png suckless-surf.png
+	xdg-icon-resource install --size 128 suckless-surf.png
+	rm suckless-surf.png
+	xdg-desktop-menu install ./suckless-surf.directory ./suckless-surf.desktop
+	xdg-desktop-menu install ./suckless-surf-open.directory ./suckless-surf-open.desktop
+
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/surf
@@ -72,5 +78,9 @@ uninstall:
 	    rm -f $(DESTDIR)$(LIBDIR)/$$wlib; \
 	done
 	- rmdir $(DESTDIR)$(LIBDIR)
+	xdg-desktop-menu uninstall suckless-surf.directory suckless-surf.desktop
+	xdg-desktop-menu uninstall suckless-surf-open.directory suckless-surf-open.desktop
+	xdg-icon-resource uninstall --size 128 suckless-surf.png
+
 
 .PHONY: all options distclean clean dist install uninstall

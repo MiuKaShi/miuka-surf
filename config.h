@@ -5,8 +5,12 @@ static char *scriptfile     = "~/.config/surf/script.js";
 static char *styledir       = "~/.config/surf/styles/";
 static char *certdir        = "~/.config/surf/certificates/";
 static char *cachedir       = "/tmp/cache";
+static char *downloaddir    = "~/Downloads/";
 static char *cookiefile     = "/tmp/cookies.txt";
 static char *searchurl      = "google.com/?q=%s";
+static char *scriptfiles[]  = {
+	"~/.config/surf/scripts/vimnav.js",
+};
 
 /* Webkit default features */
 /* Highest priority value will be used.
@@ -49,6 +53,7 @@ static Parameter defconfig[ParameterLast] = {
 	[Style]               =       { { .i = 1 },     },
 	[WebGL]               =       { { .i = 0 },     },
 	[ZoomLevel]           =       { { .f = 1.0 },   },
+	[ClipboardNotPrimary] =				{ { .i = 1 },			},
 };
 
 static UriParameters uriparams[] = {
@@ -146,9 +151,9 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_s,      spawn,      SEARCH() },
 
 	{ 0,                     GDK_KEY_c,      stop,       { 0 } },
-    { 0,                     GDK_KEY_i,      insert,     { .i = 1 } },
-    { 0,                     GDK_KEY_Escape, insert,     { .i = 0 } },	
-	{ 0,           			 GDK_KEY_q,   	 quit,	     { 0 } },
+  { 0,                     GDK_KEY_i,      insert,     { .i = 1 } },
+  { 0,                     GDK_KEY_Escape, insert,     { .i = 0 } },
+	{ 0,           			     GDK_KEY_q,   	 quit,	     { 0 } },
 
 	{ 0,                     GDK_KEY_r,      reload,     { .i = 0 } },
 
@@ -162,7 +167,6 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_b,      scrollv,    { .i = -50 } },
 	{ 0,                     GDK_KEY_o,      scrollh,    { .i = +10 } },
 	{ 0,                     GDK_KEY_u,      scrollh,    { .i = -10 } },
-
 
 	{ 0|GDK_SHIFT_MASK,      GDK_KEY_j,      zoom,       { .i = -1 } },
 	{ 0|GDK_SHIFT_MASK,      GDK_KEY_k,      zoom,       { .i = +1 } },
